@@ -122,7 +122,6 @@ Authentication uses an **OIDC identity provider** (`token.actions.githubusercont
 
 - **No root or admin credentials used by automation** — a dedicated least-privilege IAM user/role provisions all infrastructure.
 - **SSH restricted to a single IP** via the security group, instead of open to everyone.
-- **EC2 uses an IAM instance role**, not embedded credentials, for any AWS API access it needs.
 - **S3 versioning + lifecycle rules** protect against accidental overwrites/deletions while automatically cleaning up old versions to control storage cost.
 - **AWS Backup** provides scheduled, automated backups of the EC2 instance.
 - **CloudWatch billing alarm + SNS** gives an early warning if AWS spend exceeds an expected threshold.
