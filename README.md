@@ -23,25 +23,25 @@ Instead of manually clicking through the AWS Console to set things up, everythin
                                           │ terraform plan / apply
                                           ▼
 ┌───────────────────────────── AWS Account ─────────────────────────────┐
-│                                                                        │
+│                                                                       │
 │   ┌───────────────── VPC (10.0.0.0/16) ─────────────────┐             │
-│   │                                                      │             │
-│   │   ┌────────── Public Subnet ──────────┐              │             │
-│   │   │                                    │              │            │
-│   │   │   EC2 (Amazon Linux 2023)          │◄── Internet  │            │
-│   │   │   - Apache web server               │    Gateway   │            │
-│   │   │   - Security Group (80 open,        │              │            │
-│   │   │     22 restricted to my IP)          │              │            │
-│   │   └────────────────────────────────────┘              │            │
-│   │              Route Table → 0.0.0.0/0 via IGW           │            │
-│   └──────────────────────────────────────────────────────┘             │
-│                                                                        │
+│   │                                                      │            │
+│   │   ┌────────── Public Subnet ──────────┐              │            │
+│   │   │                                    │              │           │
+│   │   │   EC2 (Amazon Linux 2023)          │◄── Internet  │           │
+│   │   │   - Apache web server               │    Gateway   │          │
+│   │   │   - Security Group (80 open,        │              │          │
+│   │   │     22 restricted to my IP)          │              │         │
+│   │   └────────────────────────────────────┘              │           │
+│   │              Route Table → 0.0.0.0/0 via IGW           │          │
+│   └──────────────────────────────────────────────────────┘            │
+│                                                                       │
 │   S3 Bucket (versioned + lifecycle rule)                              │
-│   IAM Roles (EC2 role, Backup role — least privilege)                 │
+│   IAM Role (Backup role - least privilege)                            │
 │   AWS Backup Vault + Plan (daily EC2 backups)                         │
 │   CloudWatch Billing Alarm → SNS → Email                              │
-│                                                                        │
-└────────────────────────────────────────────────────────────────────────┘
+│                                                                       │
+└───────────────────────────────────────────────────────────────────────┘
 ```
 
 ## Repository structure
@@ -50,15 +50,15 @@ Instead of manually clicking through the AWS Console to set things up, everythin
 aws-terraform-infrastructure/
 ├── .github/workflows/       # GitHub Actions CI/CD pipeline (Terraform plan/apply)
 ├── main.tf                  # VPC, subnet, IGW, route table, security group, EC2, S3
-├── iam.tf                   # IAM roles/policies (EC2 instance role, Backup role)
+├── iam.tf                   # IAM role/policy (AWS Backup service role)
 ├── backup.tf                # AWS Backup vault, plan, and selection
 ├── cloudwatch.tf            # CloudWatch billing alarm + SNS topic/subscription
 ├── variables.tf             # Input variables
-├── outputs.tf                # Output values (EC2 IP, bucket name, etc.)
-├── provider.tf               # AWS provider configuration
-├── versions.tf                # Terraform/provider version constraints
-├── userdata.sh               # EC2 bootstrap script (installs & starts Apache)
-└── .gitignore                # Excludes state files, .tfvars, and secrets
+├── outputs.tf               # Output values (EC2 IP, bucket name, etc.)
+├── provider.tf              # AWS provider configuration
+├── versions.tf              # Terraform/provider version constraints
+├── userdata.sh              # EC2 bootstrap script (installs & starts Apache)
+└── .gitignore               # Excludes state files, .tfvars, and secrets
 ```
 
 ## Prerequisites
