@@ -42,8 +42,12 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan
-        run: terraform plan
-      
+        run: terraform plan -input=false
+        env:
+          TF_VAR_allowed_ssh_cidr: ${{ vars.TF_VAR_allowed_ssh_cidr }}
+
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
+        env:
+          TF_VAR_allowed_ssh_cidr: ${{ vars.TF_VAR_allowed_ssh_cidr }}

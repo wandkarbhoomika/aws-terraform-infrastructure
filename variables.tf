@@ -42,3 +42,7 @@ variable "key_name" {
   description = "EC2 key pair name for SSH access"
   type        = string
 }
+variable "alert_email" {
+  description = "Email address for billing/monitoring alerts"
+  type        = string
+}
