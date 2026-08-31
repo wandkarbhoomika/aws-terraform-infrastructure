@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-
   pull_request:
     branches:
       - main
@@ -17,9 +16,12 @@ jobs:
   terraform:
     name: Terraform
     runs-on: ubuntu-latest
+    env:
+      TF_VAR_key_name: ${{ secrets.TF_VAR_KEY_NAME }}
+      TF_VAR_allowed_ssh_cidr: ${{ secrets.TF_VAR_ALLOWED_SSH_CIDR }}
+      TF_VAR_alert_email: ${{ secrets.TF_VAR_ALERT_EMAIL }}
 
     steps:
-
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -33,7 +35,7 @@ jobs:
           aws-region: ap-south-1
 
       - name: Terraform Init
-        run: terraform init
+        run: terraform init -input=false
 
       - name: Terraform Format
         run: terraform fmt -check
@@ -43,11 +45,7 @@ jobs:
 
       - name: Terraform Plan
         run: terraform plan -input=false
-        env:
-          TF_VAR_allowed_ssh_cidr: ${{ vars.TF_VAR_allowed_ssh_cidr }}
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
-        env:
-          TF_VAR_allowed_ssh_cidr: ${{ vars.TF_VAR_allowed_ssh_cidr }}

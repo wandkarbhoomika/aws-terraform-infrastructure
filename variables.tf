@@ -38,10 +38,12 @@ variable "allowed_ssh_cidr" {
   description = "CIDR allowed to SSH into EC2"
   type        = string
 }
+
 variable "key_name" {
   description = "EC2 key pair name for SSH access"
   type        = string
 }
+
 variable "alert_email" {
   description = "Email address for billing/monitoring alerts"
   type        = string
