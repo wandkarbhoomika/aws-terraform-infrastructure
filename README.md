@@ -17,24 +17,24 @@ Instead of manually clicking through the AWS Console to set things up, everythin
 
 ```
                           ┌─────────────────────────────┐
-                          │      GitHub Actions CI/CD    │
-                          │  (OIDC → AssumeRoleWithWebId) │
-                          └───────────────┬──────────────┘
+                          │      GitHub Actions CI/CD   │
+                          │(OIDC → AssumeRoleWithWebId) │
+                          └───────────────┬─────────────┘
                                           │ terraform plan / apply
                                           ▼
 ┌───────────────────────────── AWS Account ─────────────────────────────┐
 │                                                                       │
-│   ┌───────────────── VPC (10.0.0.0/16) ─────────────────┐             │
-│   │                                                      │            │
-│   │   ┌────────── Public Subnet ──────────┐              │            │
-│   │   │                                    │              │           │
-│   │   │   EC2 (Amazon Linux 2023)          │◄── Internet  │           │
-│   │   │   - Apache web server               │    Gateway   │          │
-│   │   │   - Security Group (80 open,        │              │          │
-│   │   │     22 restricted to my IP)          │              │         │
-│   │   └────────────────────────────────────┘              │           │
-│   │              Route Table → 0.0.0.0/0 via IGW           │          │
-│   └──────────────────────────────────────────────────────┘            │
+│   ┌───────────────── VPC (10.0.0.0/16) ───────────────────┐           │
+│   │                                                       │           │
+│   │   ┌────────── Public Subnet ──────────┐               │           │
+│   │   │                                   │               │           │
+│   │   │   EC2 (Amazon Linux 2023)         │◄── Internet   │           │
+│   │   │   - Apache web server             │    Gateway    │           │
+│   │   │   - Security Group (80 open,      │               │           │
+│   │   │     22 restricted to my IP)       │               │           │
+│   │   └───────────────────────────────────┘               │           │
+│   │              Route Table → 0.0.0.0/0 via IGW          │           │
+│   └───────────────────────────────────────────────────────┘           │
 │                                                                       │
 │   S3 Bucket (versioned + lifecycle rule)                              │
 │   IAM Role (Backup role - least privilege)                            │
