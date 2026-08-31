@@ -2,7 +2,7 @@
 
 Secure, automated AWS infrastructure provisioned entirely with Terraform (IaC), including networking, compute, storage, IAM, backup, and cost-monitoring , deployed via a CI/CD pipeline built on GitHub Actions using OIDC-based (keyless) authentication.
 
-## What this project does (in plain terms)
+## What this project does
 
 Instead of manually clicking through the AWS Console to set things up, everything here is written as code using Terraform. Run one command, and it automatically builds the entire environment below.
 
